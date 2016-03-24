@@ -1,0 +1,230 @@
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<!-- external dependencies -->
+<script type="text/javascript" src="scripts/vendor/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/vendor/jquery-ui.min.js"></script>
+<!-- <script type="text/javascript" src="scripts/vendor/datatables.min.js"></script> -->
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+
+<!-- Local CSS -->
+<link rel="stylesheet" href="styles/main.css">
+
+<!-- FA -->
+<!-- <link rel="stylesheet" href="styles/fa/css/font-awesome.min.css"> -->
+
+</head>
+<body>
+<div id="cards">
+</div>
+
+
+<div class='modal fade' id="detail-modal" role="dialog" tabindex='-1'>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- Header -->
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true" class="modal_button">&times;</span>
+				</button>
+				<!-- <button type="button" class="close-button" data-dismiss="modal">&times;</button> -->
+				<div id="modal-title"></div>
+			</div>
+			<!-- Body -->
+		    <div class='modal-body'>
+		    	<div id="fullsize-images"></div>
+		    </div>
+			<!-- Footer -->
+		    <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	 		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	
+var colors = {
+	'Renaissance': '#212D8B',
+	'Baroque Italy': '#3366FF',
+	'Baroque France': '#6633FF',
+	'Baroque Europe': '#CC33FF',
+	'Late Baroque / Rococo': '#FF33CC',
+	'French Rationalism': '#33CCFF',
+	'Archaeology and Antiques': '#003DF5',
+	'Visionary Architecture': '#002EB8',
+	'Picturesque': '#FF3366',
+	'France: Revolution and the Public': '#33FFCC',
+	'Neo-Gothic': '#B88A00',
+	'Neoclassicism: Nationalism': '#F5B800',
+	'Industrial Revolution': '#FF6633',
+	'Reactions Against Industrialization': '#33FF66',
+	'Vienna Secession / Ringstrasse': '#66FF33',
+	'Countering Ornamentation': '#CCFF33',
+	'Arts & Crafts / Art Nouveau': '#FFCC33',
+	'First Gen Chicago School': '#D2CA58',
+};
+
+function csvToJson(csv){
+	var lines = csv.split("\n");
+	var result = [];
+	var headers=lines[0].split(",");
+
+	for (var i=1;i<lines.length;i++){
+		var obj = {};
+		var currentline=lines[i].split(",");
+		
+		for(var j=0;j<headers.length;j++) {
+			obj[headers[j]] = currentline[j];
+		}
+
+		result.push(obj);
+	}
+	//return result; //JavaScript object
+	return JSON.stringify(result); //JSON
+}
+
+function setListeners() {
+	// set listeners
+	$('.thumbnail').click(function() {
+		var slideid = $(this).data('slideid');
+		var imgArray = [];
+		// console.log("  >  slide # " + slideid);
+
+		for (var i = 0; i <= 3; i++) {
+			if (typeof window.JSONdata[slideid]['Image' + i] !== 'undefined' 
+				&& window.JSONdata[slideid]['Image' + i] !== '') {
+				imgArray.push(window.JSONdata[slideid]['Image' + i].trim());
+			}
+			else {
+				break;
+			}
+		}
+
+		// *DEBUG*
+		// console.log(imgArray);
+
+		// Popup the modal
+		$('#detail-modal').appendTo("body")
+		$('#detail-modal').modal('show');
+		// Clear stuff
+		$('#modal-title').empty();
+		$('#fullsize-images').empty();
+
+		$('#modal-title').html(window.JSONdata[slideid].Building);
+
+		for (var i = 0; i < imgArray.length; i++) {
+			$objImage = $('<div>')
+				.addClass('fullsizeImage')
+				.html('<img class="img-responsive center-img" src="images/' + imgArray[i] + '">');
+
+			$('#fullsize-images').append($objImage);
+		}	
+	});
+
+
+	// MODAL 
+	$('#contact').on('click', function() {
+		
+	});
+
+	$('.close').on('click', function() {
+		deselect($('#contact'));
+		return false;
+	});
+
+}
+
+function drawCards(data) {
+	var $cardList = 
+		$('<div>')
+        	.addClass('row-fluid');
+    
+    //var cardsPerRow = 2;
+
+    // Loop through all JSON (CSV) rows
+	for (i = 0; i < data.length; i++) {	
+		// Flashcard parent div
+		$slideCard = $('<div>')
+			.attr('id', 'slide' + i)
+			.attr('data-slideid', i)
+			.addClass('w388 h240 relative thumbnail col-sm-12 col-md-6 col-lg-3');
+
+		// Category color bar
+		$colorBar = $('<div>')
+			.addClass('color-bar');
+
+		// Set color based on mapping
+		$colorBar.css('background-color', colors[data[i].Category.trim()]);
+		
+		// Prepare text blocks
+	 	$topBlock = $('<div>')
+	 		.append(
+	 			'<span class="text-lg">' + data[i].Architect.trim()  + '</span>' + 
+	 			'<span class="text-md">' + data[i].Building.trim()  + '</span>' + 
+	 			'<span class="period-text absolute">' + data[i].Category.trim() + '</span>');
+
+	 	$bottomBlock = $('<div>')
+	 		.append('<span class="date-text absolute">' + data[i].Place.trim() + 
+	 				(data[i].Place.trim() !== "" ? ' ' : '') + 
+	 				data[i].Era.trim()  + '</span>');
+
+	 	// Set background image, if any
+		if (JSONdata[i].Image0.trim() !== '') {
+			$slideCard.css('background-image','url(images/' + JSONdata[i].Image0.trim() + ')');
+		}
+
+		// Add them to the parent element
+		$slideCard.append($colorBar);
+	 	$slideCard.append($topBlock);
+	 	$slideCard.append($bottomBlock);
+
+	 	// Add to the list
+	 	$cardList.append($slideCard);
+	}
+
+	$('#cards').append($cardList);
+
+	// Append click listeners
+	setListeners();
+}
+
+function deselect(e) {
+  $('.pop').slideFadeToggle(function() {
+    e.removeClass('selected');
+  });    
+}
+
+$(document).ready(function() {
+	$.ajax({
+		type: "GET",
+		url: "flipcards.csv",
+		dataType: "text",
+		success: function(data) {
+			var rawData = csvToJson(data);
+			var JSONdata = JSON.parse(rawData);
+			window.JSONdata = JSONdata;
+
+			// Remove last column of data
+			delete JSONdata["Dummy"];
+			drawCards(JSONdata);
+		}
+	});
+
+	
+});
+
+$.fn.slideFadeToggle = function(easing, callback) {
+  return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
+};
+
+</script>
+
+</body>
+</html>
