@@ -88,7 +88,8 @@ h2, h3, h4, small {
 
 /* ------------------ MODAL / POPUP ---------------*/
 .modal-header {
-    padding: 14px 0 12px 10px;
+    padding: 10px 0 12px 10px;
+    /*text-align: center;*/
 }
 
 
@@ -117,7 +118,9 @@ h2, h3, h4, small {
 
 #modal-title {
     font-size: 24px;
-    color: #777;
+    min-width: 80%;
+    text-align: center;
+    color: #fff;
     font-weight: 300;
     vertical-align: bottom;
     margin-left: 10px;
@@ -126,7 +129,7 @@ h2, h3, h4, small {
 
 .close-modal {
     border: 1px solid #999 !important;
-    color: #777 !important;;
+    color: #fff !important;;
     background-color: transparent !important;
     border-radius: 3px;
     font-weight: 700;
@@ -152,13 +155,14 @@ h2, h3, h4, small {
     margin-bottom: 10px;    
 }
 
-.fullsizeImage:before, .fullsizeImage:after {
+/*.fullsizeImage:before, */
+.fullsizeImage:after {
     content: "";
     height: 1px;
-    background: linear-gradient(to right,  rgba(0,0,0,0) 0%,rgba(147,147,147,1) 50%,rgba(0,0,0,0) 100%);
+    background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(147,147,147,1) 50%,rgba(0,0,0,0) 100%);
     display: block;
     margin-bottom: 10px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 /*----------------- One offs ----------------------*/
 
