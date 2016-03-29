@@ -1,4 +1,5 @@
 images/*.jpg
 images/*.jpeg
+images/*.png
 *.psd
 import/

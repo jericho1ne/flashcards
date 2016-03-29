@@ -124,18 +124,21 @@ h2, h3, h4, small {
     display: inline-block;
 }
 
-.close {
-    border: 1px solid #333 !important;
+.close-modal {
+    border: 1px solid #999 !important;
+    color: #777 !important;;
+    background-color: transparent !important;
     border-radius: 3px;
     font-weight: 700;
-    font-size: 26px;
-    margin-right: 16px;
-    padding: 4px 12px 8px 12px !important;
+    font-size: 32px;    
+    line-height: 28px;
+    margin-right: 2px;
+    padding: 4px 10px 8px 8px !important;
     cursor: pointer;
 }
 
 .close-modal:hover {
-    background-color: #ddd;
+    background-color: #eee !important;
 }
 
 .center-img {

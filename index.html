@@ -30,7 +30,7 @@
 		<div class="modal-content">
 			<!-- Header -->
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">
+				<button type="button" class="close-modal" data-dismiss="modal">
 					<span aria-hidden="true" class="modal_button">&times;</span>
 				</button>
 				<!-- <button type="button" class="close-button" data-dismiss="modal">&times;</button> -->
@@ -91,7 +91,12 @@ function csvToJson(csv){
 }
 
 function setListeners() {
-	// set listeners
+	// Modal X close button
+	$('.close-modal').click(function() {
+		$('#detail-modal').modal('toggle');
+	});
+	
+	// Thumbnail click 
 	$('.thumbnail').click(function() {
 		var slideid = $(this).data('slideid');
 		var imgArray = [];
