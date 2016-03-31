@@ -111,9 +111,6 @@ function setListeners() {
 	$('.thumbnail').click(function() {
 		var slideid = $(this).data('slideid');
 		var slideColor = hexToRgba($(this).data('color'), 88);
-
-		console.log(slideColor);
-
 		var imgArray = [];
 		// console.log("  >  slide # " + slideid);
 
@@ -183,12 +180,9 @@ function drawCards(data) {
 			.attr('data-color', cardColor)
 			.addClass('w388 h240 relative thumbnail col-sm-12 col-md-6 col-lg-3');
 
-		// Category color bar
-		$colorBar = $('<div>')
-			.addClass('color-bar');
 
 		// Set color based on mapping
-		$colorBar.css('background-color', cardColor);
+		// $colorBar
 		
 		// Prepare text blocks
 	 	$topBlock = $('<div>')
@@ -198,6 +192,8 @@ function drawCards(data) {
 	 			'<span class="period-text absolute">' + data[i].Category.trim() + '</span>');
 
 	 	$bottomBlock = $('<div>')
+	 		.addClass('color-bar')
+	 		.css('background-color', cardColor)
 	 		.append('<span class="date-text absolute">' + data[i].Place.trim() + 
 	 				(data[i].Place.trim() !== "" ? ' ' : '') + 
 	 				data[i].Era.trim()  + '</span>');
@@ -208,7 +204,7 @@ function drawCards(data) {
 		}
 
 		// Add them to the parent element
-		$slideCard.append($colorBar);
+		// $slideCard.append($colorBar);
 	 	$slideCard.append($topBlock);
 	 	$slideCard.append($bottomBlock);
 
