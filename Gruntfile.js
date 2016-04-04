@@ -69,12 +69,12 @@ module.exports = function (grunt) {
 						'**/*.js', 
 						'**/*.csv', 
 						'**/*.css',
-						'images/_grey-bg.png',
-						'images/*',
+						//'images/_grey-bg.png',
+						// 'images/*',
 					],
 					filter: 'isFile',
 					// path on the server
-					dest: '/home/users/mpeteu/public_html/flashcards'
+					dest: '<%= scpConfig.directory %>'
 				}]
 			},
 		}// End task grunt-scp
