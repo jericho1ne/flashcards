@@ -1,11 +1,11 @@
-
-/*-------------------- HTML tags -------------------*/
 body {
 	background: #fafafa;
 	padding: 14px;
 }
 
 .thumbnail {
+    width: 388px;
+    height: 240px;
 	border: 1px solid #ccc;
 	margin-bottom: 20px;
     margin-right: 20px;
@@ -64,7 +64,6 @@ h2, h3, h4, small {
     z-index: 20;
 }
 
-
 .period-text, .date-text {
     color: #fff;
     text-shadow: 1px 0.5px 0.5px #555;
@@ -91,8 +90,6 @@ h2, h3, h4, small {
     /*text-align: center;*/
 }
 
-
-
 .fade {
    opacity: 0;
    -webkit-transition: opacity 0.15s linear;
@@ -111,13 +108,13 @@ h2, h3, h4, small {
 
 .modal-content {
   height: auto;
-  min-height: 100%;
+  min-width: 100%;
   border-radius: 0;
 }
 
 #modal-title {
     font-size: 24px;
-    text-shadow: 1px 1.5px 2px #444;
+    text-shadow: 1px 1.5px 1.5px #444;
     min-width: 80%;
     text-align: center;
     color: #fff;
@@ -131,6 +128,7 @@ h2, h3, h4, small {
     border: 2px solid #eee !important;
     color: #fff !important;;
     background-color: transparent !important;
+    text-shadow: 1px 1px 1px #444;
     border-radius: 3px;
     font-weight: 700;
     font-size: 32px;    
@@ -165,22 +163,11 @@ h2, h3, h4, small {
     margin-top: 20px;
 }
 /*----------------- One offs ----------------------*/
-
 .auto-expand {
 	display: block;
 	overflow-y: auto;
 }
 
-.div-full-length {
-	width: 100%;
-	display: block;
-}
-
-.inline-block {
-	display: inline-block;
-}
-
-/*  Font Awesome Customness */
 .link, .link a {
 	padding: 6px 4px 6px 0px;
 	background: none;
@@ -200,7 +187,6 @@ h2, h3, h4, small {
 	margin: 10px auto 10px auto;
 }
 
-
 /*      General Stuff          */
 .absolute {
     position: absolute;
@@ -211,215 +197,3 @@ h2, h3, h4, small {
 .hidden {
     display: none;
 }
-.opacity-30 {
-    opacity: 0.3;
-}
-.opacity-40 {
-    opacity: 0.4;
-}
-.opacity-60 {
-    opacity: 0.6;
-}
-.opacity-80 {
-    opacity: 0.8;
-}
-
-.text-align-left {
-    text-align: left;
-}
-
-.text-align-right {
-    text-align: right;
-}
-
-/* Font size & Line Height */
-.em2 {
-    font-size: 2em;
-}
-.em3 {
-    font-size: 3em;
-}
-.em4 {
-    font-size: 4em;
-}
-
-
-.line-height-200 {
-    line-height: 200%;
-}
-.line-height-150 {
-    line-height: 150%;
-}
-.line-height-125 {
-    line-height: 125%;
-}
-.line-height-100 {
-    line-height: 100%;
-}
-
-/*       Padding and Margins      */
-.top-m10 {
-    top: -10px;
-}
-
-.top-m15 {
-    top: -15px;
-}
-
-.top-m20 {
-    top: -20px;
-}
-
-
-
-.top20 {
-    top: 20px;
-}
-.top40 {
-    top: 40px;
-}
-.top60 {
-    top: 60px;
-}
-.top80 {
-    top: 80px;
-}
-.top100 {
-    top: 100px;
-}
-.top200 {
-    top: 200px;
-}
-
-.margin-top-10 {
-    margin-top: 10px;
-}
-
-.margin-top-20 {
-    margin-top: 20px;
-}
-
-.margin-bottom-10 {
-    margin-bottom: 10px;
-}
-
-.margin-bottom-20 {
-    margin-bottom: 20px;
-}
-
-.padtop10 {
-    padding-top: 10px;
-}
-
-.padbot20 {
-    padding-bottom: 20px;
-}
-
-
-.pad4 {
-    padding: 4px;
-}
-.pad10 {
-    padding: 10px;
-}
-
-/*       Dimensions              */
-.w100p {
-    width: 100%;
-}
-
-.w60 {
-    width: 60px;
-}
-.w80 {
-    width: 80px;
-}
-.w100 {
-    width: 100px;
-}
-
-.w200 {
-    width: 200px;
-}
-.w300 {
-    width: 300px;
-}
-.w320 {
-    width: 320px;
-}
-.w340 {
-    width: 340px;
-}
-.w360 {
-    width: 360px;
-}
-.w388 {
-    width: 388px;
-}
-.w400 {
-    width: 400px;
-}
-
-.w485 {
-    width: 485px;
-}
-
-.h40 {
-    height: 40px;
-}
-.h80 {
-    height: 80px;
-}
-.h120 {
-    height: 120px;
-}
-.h160 {
-    height: 160px;
-}
-.h200 {
-    height: 200px;
-}
-.h240 {
-    height: 240px;
-}
-.h280 {
-    height: 280px;
-}
-.h300 {
-    height: 300px;
-}
-.h320 {
-   height: 320px;
-}
-.h340 {
-    height: 340px;
-}
-.h400 {
-    height: 400px;
-}
-.minh200 {
-    min-height: 200px
-}
-
-.pad-right-10 {
-	padding-right: 10px;
-}
-.margin-right-10 {
-	margin-right: 10px;
-}
-.margin-right-m10 {
-	margin-right: -10px;
-}
-.margin-left-m10 {
-	margin-left: -10px;
-}
-.margin-right-15 {
-	margin-right: 15px;
-}
-.margin-right-20 {
-	margin-right: 20px;
-}
-
-
-
-

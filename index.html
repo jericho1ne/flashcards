@@ -6,7 +6,10 @@
 <!-- external dependencies -->
 <script type="text/javascript" src="scripts/vendor/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/vendor/jquery-ui.min.js"></script>
-<!-- <script type="text/javascript" src="scripts/vendor/datatables.min.js"></script> -->
+
+<!-- Flashcards stuff -->
+<script type="text/javascript" src="scripts/colors.js"></script>
+<script type="text/javascript" src="scripts/common.js"></script>
 
 <!-- Bootstrap -->
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
@@ -33,7 +36,6 @@
 				<button type="button" class="close-modal" data-dismiss="modal">
 					<span aria-hidden="true" class="modal_button">&times;</span>
 				</button>
-				<!-- <button type="button" class="close-button" data-dismiss="modal">&times;</button> -->
 				<div id="modal-title"></div>
 			</div>
 			<!-- Body -->
@@ -44,209 +46,28 @@
 		    <div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	 		</div>
+	 	</div>
 	</div>
 </div>
 
 
 <script type="text/javascript">
-	
-var colors = {
-	'Renaissance': '#212D8B',
-	'Baroque Italy': '#3366FF',
-	'Baroque France': '#6633FF',
-	'Baroque Europe': '#CC33FF',
-	'Late Baroque / Rococo': '#FF33CC',
-	'French Rationalism': '#33CCFF',
-	'Archaeology and Antiques': '#003DF5',
-	'Visionary Architecture': '#002EB8',
-	'Picturesque': '#FF3366',
-	'France: Revolution and the Public': '#33FFCC',
-	'Neo-Gothic': '#B88A00',
-	'Neoclassicism: Nationalism': '#F5B800',
-	'Industrial Revolution': '#FF6633',
-	'Reactions Against Industrialization': '#33FF66',
-	'Vienna Secession / Ringstrasse': '#66FF33',
-	'Countering Ornamentation': '#CCFF33',
-	'Arts & Crafts / Art Nouveau': '#FFCC33',
-	'First Gen Chicago School': '#D2CA58',
-};
-
-function csvToJson(csv){
-	var lines = csv.split("\n");
-	var result = [];
-	var headers=lines[0].split(",");
-
-	for (var i=1;i<lines.length;i++){
-		var obj = {};
-		var currentline=lines[i].split(",");
-		
-		for(var j=0;j<headers.length;j++) {
-			obj[headers[j]] = currentline[j];
-		}
-
-		result.push(obj);
-	}
-	//return result; //JavaScript object
-	return JSON.stringify(result); //JSON
-}
-
-
-function hexToRgba(hex, opacity) {
-    hex = hex.replace('#','');
-    r = parseInt(hex.substring(0,2), 16);
-    g = parseInt(hex.substring(2,4), 16);
-    b = parseInt(hex.substring(4,6), 16);
-
-    result = 'rgba('+r+','+g+','+b+','+opacity/100+')';
-    return result;
-}
-
-function setListeners() {
-	// Modal X close button
-	$('.close-modal').click(function() {
-		$('#detail-modal').modal('toggle');
-	});
-	
-	// Thumbnail click 
-	$('.thumbnail').click(function() {
-		var slideid = $(this).data('slideid');
-		var slideColor = hexToRgba($(this).data('color'), 88);
-		var imgArray = [];
-		// console.log("  >  slide # " + slideid);
-
-		for (var i = 0; i <= 3; i++) {
-			if (typeof window.JSONdata[slideid]['Image' + i] !== 'undefined' 
-				&& window.JSONdata[slideid]['Image' + i] !== '') {
-				imgArray.push(window.JSONdata[slideid]['Image' + i].trim());
-			}
-			else {
-				break;
-			}
-		}
-
-		// *DEBUG*
-		// console.log(imgArray);
-
-		// Popup the modal
-		$('#detail-modal').appendTo("body")
-		$('#detail-modal').modal('show');
-		// Clear stuff
-		$('#modal-title').empty();
-		$('#fullsize-images').empty();
-
-		// Set modal title
-		$('#modal-title').html(window.JSONdata[slideid].Building);
-
-		// Set modal header bg color
-		$('.modal-header').css('background-color', slideColor);
-
-		for (var i = 0; i < imgArray.length; i++) {
-			$objImage = $('<div>')
-				.addClass('fullsizeImage')
-				.html('<img class="img-responsive center-img" src="images/' + imgArray[i] + '">');
-
-			$('#fullsize-images').append($objImage);
-		}	
-	});
-
-
-	// MODAL 
-	$('#contact').on('click', function() {
-		
-	});
-
-	$('.close').on('click', function() {
-		deselect($('#contact'));
-		return false;
-	});
-
-}
-
-function drawCards(data) {
-	var $cardList = 
-		$('<div>')
-        	.addClass('row-fluid');
-    
-    //var cardsPerRow = 2;
-
-    // Loop through all JSON (CSV) rows
-	for (i = 0; i < data.length; i++) {	
-		var cardColor = colors[data[i].Category.trim()];
-
-		// Flashcard parent div
-		$slideCard = $('<div>')
-			.attr('id', 'slide' + i)
-			.attr('data-slideid', i)
-			.attr('data-color', cardColor)
-			.addClass('w388 h240 relative thumbnail col-sm-12 col-md-6 col-lg-3');
-
-
-		// Set color based on mapping
-		// $colorBar
-		
-		// Prepare text blocks
-	 	$topBlock = $('<div>')
-	 		.append(
-	 			'<span class="text-lg">' + data[i].Architect.trim()  + '</span>' + 
-	 			'<span class="text-md">' + data[i].Building.trim()  + '</span>' + 
-	 			'<span class="period-text absolute">' + data[i].Category.trim() + '</span>');
-
-	 	$bottomBlock = $('<div>')
-	 		.addClass('color-bar')
-	 		.css('background-color', cardColor)
-	 		.append('<span class="date-text absolute">' + data[i].Place.trim() + 
-	 				(data[i].Place.trim() !== "" ? ' ' : '') + 
-	 				data[i].Era.trim()  + '</span>');
-
-	 	// Set background image, if any
-		if (JSONdata[i].Image0.trim() !== '') {
-			$slideCard.css('background-image','url(images/' + JSONdata[i].Image0.trim() + ')');
-		}
-
-		// Add them to the parent element
-		// $slideCard.append($colorBar);
-	 	$slideCard.append($topBlock);
-	 	$slideCard.append($bottomBlock);
-
-	 	// Add to the list
-	 	$cardList.append($slideCard);
-	}
-
-	$('#cards').append($cardList);
-
-	// Append click listeners
-	setListeners();
-}
-
-function deselect(e) {
-  $('.pop').slideFadeToggle(function() {
-    e.removeClass('selected');
-  });    
-}
-
+/**
+ * Upon dom load, do this by default 
+ */
 $(document).ready(function() {
-	$.ajax({
-		type: "GET",
-		url: "flipcards.csv",
-		dataType: "text",
-		success: function(data) {
-			var rawData = csvToJson(data);
-			var JSONdata = JSON.parse(rawData);
-			window.JSONdata = JSONdata;
-
-			// Remove last column of data
-			delete JSONdata["Dummy"];
-			drawCards(JSONdata);
-		}
+	// Pass in a CSV file to read data from
+	getFlashcardData('flashcard-data.csv').then(function(data) {
+		// Save to global object
+		window.flashcards = data;
+		// Add the cards to the page
+		drawCards(data);
 	});
-
-	
 });
 
 $.fn.slideFadeToggle = function(easing, callback) {
   return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
 };
-
 </script>
 
 </body>
