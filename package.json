@@ -1,0 +1,33 @@
+{
+  "name": "flashcards",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt-scp": "^0.1.9"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-filerev": "^2.3.1",
+    "grunt-scp": "^0.1.9",
+    "grunt-ssh": "^0.12.9",
+    "install": "^0.6.1",
+    "npm": "^3.8.5",
+    "time-grunt": "^1.3.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jericho1ne/flashcards.git"
+  },
+  "author": "Mihai Peteu / Rebecca Choi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jericho1ne/flashcards/issues"
+  },
+  "homepage": "https://github.com/jericho1ne/flashcards#readme"
+}

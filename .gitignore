@@ -3,3 +3,5 @@ images/*.jpeg
 images/*.png
 *.psd
 import/
+node_modules/
+scp.json
